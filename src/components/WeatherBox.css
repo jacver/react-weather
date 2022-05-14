@@ -1,0 +1,25 @@
+.weatherCardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.weatherCard {
+    flex-direction: column;
+    text-align: center;
+    border: 1px rgb(211, 211, 211) solid
+}
+
+.weatherCard:hover{
+    background: rgb(211, 211, 211);
+}
+
+.tempContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.dailyMin {
+    color: rgb(169,169,169)
+}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import WeatherBox from './WeatherBox'
 
 
 function WeatherStrip() {
@@ -13,32 +14,35 @@ function WeatherStrip() {
 
   const [weatherData, setWeatherData] = useState([])
 
-  function getWeatherData() {
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${apiOptions.lat}&lon=${apiOptions.long}&exclude=current,minutely,hourly&units=${apiOptions.units}&appid=${apiOptions.key}`
-
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            setWeatherData(data)
-            console.log("lol", data.daily[0].temp)
-        })
-        .catch(console.error)
-
-  }
 
   useEffect(() => {
+    function getWeatherData() {
+      const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${apiOptions.lat}&lon=${apiOptions.long}&exclude=current,minutely,hourly&units=${apiOptions.units}&appid=${apiOptions.key}`
+  
+      fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            // console.log(data.daily[0].dt);
+              setWeatherData(data.daily)
+          })
+          .catch(console.error)
+    }
       getWeatherData()
   }, [])
 
   return (
     <div className='container'>
-      {/* {
-          weatherData 
-            ? weatherData.daily.map((day, i) => (
-                <p>day {i}: {day}</p>
-            ))
-            : <p>No data found</p>
-      } */}
+      {
+        weatherData.length <= 0 
+          ? <p>Looking for data, weatherboy? It ain't here, dipshit.</p>
+          : weatherData.map((data, i) => (
+            <WeatherBox 
+              data={data} 
+              index={i} 
+              key={i}
+              />
+          ))
+      }
     </div>
   )
 }
