@@ -23,12 +23,13 @@ function WeatherStrip() {
           .then(res => res.json())
           .then(data => {
             // console.log(data.daily[0].dt);
-              setWeatherData(data.daily)
+              setWeatherData(data.daily.splice(0, 5))
           })
           .catch(console.error)
     }
       getWeatherData()
   }, [])
+
 
   return (
     <div className='container'>
